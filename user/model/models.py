@@ -1,5 +1,6 @@
 import datetime
 
+import passlib.hash
 from peewee import *
 from datetime import datetime
 
@@ -24,7 +25,7 @@ class User(BaseMode):
     birthday = DateField(verbose_name="生日",null=True)
     address = CharField(verbose_name="联系地址",null=True)
     desc = TextField(verbose_name="个人简介",null=True)
-    gender = BooleanField(verbose_name="性别",choices=(
+    gender = SmallIntegerField(verbose_name="性别",choices=(
         (0,"女"),
         (1, "男")
     ),null=False)
@@ -35,4 +36,6 @@ class User(BaseMode):
 
 
 if __name__ == '__main__':
-    settings.db.create_tables([User])
+    users = User.select().paginate(1,5)
+    for user in users.dicts():
+        print(user)

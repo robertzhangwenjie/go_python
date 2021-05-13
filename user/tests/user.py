@@ -18,9 +18,7 @@ class UserServiceTest(unittest.TestCase):
         page_info = user_pb2.PageInfo()
         page_info.pageNum = 1
         page_info.pageSize = 20
-        users: user_pb2.UserListResponse = self.user_stub.GetUserList(page_info)
-        for user in users.data:
-            print(user)
+        users = self.user_stub.GetUserList(page_info)
         self.assertIsNotNone(users,"get user list failed")
 
 if __name__ == '__main__':
