@@ -1,16 +1,27 @@
-# This is a sample Python script.
+import os
+import unittest,argparse
+from user import server
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-import logging
+def arg_parse():
+    '''
+    解析命令行参数
+    :return:
+    '''
+    # 初始化一个参数解析器
+    parser = argparse.ArgumentParser(description="command args parser")
+
+    # user server port
+    parser.add_argument(
+        "--port",
+        nargs="?",
+        default=50050,
+        type=int,
+        help="server port"
+    )
+    # 对命令行参数进行解析，并返回一个参数对象
+    args = parser.parse_args()
+    return args
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-
-    logging.basicConfig()
+args = arg_parse()
+server.serve(args.port)

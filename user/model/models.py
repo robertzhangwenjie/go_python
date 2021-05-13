@@ -1,5 +1,6 @@
 import datetime
 
+import passlib.hash
 from peewee import *
 from datetime import datetime
 
@@ -18,13 +19,13 @@ class User(BaseMode):
     用户模型
     '''
     mobile = CharField(verbose_name="手机号码",max_length=11, index=True,unique=True,null=False)
-    passwd = CharField(verbose_name="密码")
+    passwd = CharField(verbose_name="密码",null=False)
     nick_name = CharField(verbose_name="昵称",null=True,max_length=20)
     avatar_url = CharField(verbose_name="头像地址",null=True)
     birthday = DateField(verbose_name="生日",null=True)
     address = CharField(verbose_name="联系地址",null=True)
     desc = TextField(verbose_name="个人简介",null=True)
-    gender = BooleanField(verbose_name="性别",choices=(
+    gender = SmallIntegerField(verbose_name="性别",choices=(
         (0,"女"),
         (1, "男")
     ),null=False)
@@ -35,4 +36,6 @@ class User(BaseMode):
 
 
 if __name__ == '__main__':
-    settings.db.create_tables([User])
+    users = User.select().paginate(1,5)
+    for user in users.dicts():
+        print(user)
