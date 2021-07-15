@@ -23,5 +23,8 @@ def arg_parse():
     return args
 
 
-args = arg_parse()
-server.serve(args.port)
+if __name__ == '__main__':
+
+
+    args = arg_parse()
+    server.serve(args.port)

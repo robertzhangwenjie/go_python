@@ -46,6 +46,7 @@ class UserService(user_pb2_grpc.UserServicer):
 
     @logger.catch
     def GetUserList(self, request, context):
+
         # 初始化返回的消息体对象
         res = user_pb2.UserListResponse()
         # 获取所有用户信息
@@ -59,6 +60,7 @@ class UserService(user_pb2_grpc.UserServicer):
             pageNum = request.pageNum
         if request.pageSize:
             pageSize = request.pageSize
+
         for user in users.paginate(pageNum, pageSize):
             # 将每一个用户信息转换为定义的rpc message 对象
             user_info = user_pb2.UserInfoResponse()
